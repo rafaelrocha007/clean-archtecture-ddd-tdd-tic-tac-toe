@@ -36,3 +36,11 @@ it(
     }
 );
 
+it(
+    'Should change turn when a cell is filled',
+    function () {
+        $sut = makeSut();
+        $sut->fillCell(0, 0);
+        assertEquals($sut->getCurrentPlayer(), 'o');
+    }
+);

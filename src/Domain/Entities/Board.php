@@ -129,4 +129,12 @@ class Board
     {
         return $this->currentPlayer;
     }
+
+    /**
+     * @return string
+     */
+    public function getCellValue(int $x, int $y): string
+    {
+        return $this->board[$x][$y];
+    }
 }
