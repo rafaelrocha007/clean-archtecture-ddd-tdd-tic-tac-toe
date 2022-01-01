@@ -27,3 +27,12 @@ it(
     }
 );
 
+it(
+    'Should fill a cell',
+    function () {
+        $sut = makeSut();
+        $sut->fillCell(0, 0);
+        assertEquals($sut->getCellValue(0, 0), 'x');
+    }
+);
+
