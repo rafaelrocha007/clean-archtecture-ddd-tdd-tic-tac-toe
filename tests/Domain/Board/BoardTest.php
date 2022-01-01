@@ -3,6 +3,8 @@
 use App\Domain\Entities\Board;
 use App\Domain\Exceptions\FilledCellException;
 
+use function PHPUnit\Framework\assertEquals;
+
 function makeSut()
 {
     return new Board();
@@ -18,9 +20,10 @@ it(
 )->throws(FilledCellException::class);
 
 it(
-    'Should fill a cell',
+    'Should starts with X player',
     function () {
         $sut = makeSut();
-        $sut->fillCell(0,0);
+        assertEquals($sut->getCurrentPlayer(), 'x');
     }
 );
+

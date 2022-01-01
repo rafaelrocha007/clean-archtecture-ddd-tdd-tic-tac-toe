@@ -42,7 +42,6 @@ class Board
 
     private function addTurnEvent(int $x, int $y)
     {
-
     }
 
     /**
@@ -63,7 +62,6 @@ class Board
                 return $winnerInColumn;
             }
         }
-
 
         return null;
     }
@@ -122,5 +120,13 @@ class Board
         }
 
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentPlayer(): string
+    {
+        return $this->currentPlayer;
     }
 }
