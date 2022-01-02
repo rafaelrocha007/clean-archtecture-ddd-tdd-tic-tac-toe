@@ -4,43 +4,92 @@ use App\Domain\Entities\Board;
 use App\Domain\Exceptions\FilledCellException;
 
 use function PHPUnit\Framework\assertEquals;
-
-function makeSut()
-{
-    return new Board();
-}
+use function PHPUnit\Framework\assertNull;
 
 it(
-    'Should throw trying to fill a filled cell',
+    'should throw trying to fill a filled cell',
     function () {
-        $sut = makeSut();
+        $sut = new Board();
         $sut->fillCell(0, 0);
         $sut->fillCell(0, 0);
     }
 )->throws(FilledCellException::class);
 
 it(
-    'Should starts with X player',
+    'should starts with X player',
     function () {
-        $sut = makeSut();
+        $sut = new Board();
         assertEquals($sut->getCurrentPlayer(), 'x');
     }
 );
 
 it(
-    'Should fill a cell',
+    'should fill a cell',
     function () {
-        $sut = makeSut();
+        $sut = new Board();
         $sut->fillCell(0, 0);
         assertEquals($sut->getCellValue(0, 0), 'x');
     }
 );
 
 it(
-    'Should change turn when a cell is filled',
+    'should change turn when a cell is filled',
     function () {
-        $sut = makeSut();
+        $sut = new Board();
         $sut->fillCell(0, 0);
         assertEquals($sut->getCurrentPlayer(), 'o');
+    }
+);
+
+it(
+    'should player x win the match',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(1, 0);
+        $sut->fillCell(0, 1);
+        $sut->fillCell(1, 1);
+        $sut->fillCell(0, 2);
+        assertEquals($sut->checkMatchResult(), 'x');
+    }
+);
+
+it(
+    'should player o win the match',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(1, 0);
+        $sut->fillCell(0, 1);
+        $sut->fillCell(1, 1);
+        $sut->fillCell(0, 2);
+        assertEquals($sut->checkMatchResult(), 'x');
+    }
+);
+
+it(
+    'should tie the match',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(0, 2);
+        $sut->fillCell(0, 1);
+        $sut->fillCell(1, 0);
+        $sut->fillCell(1, 2);
+        $sut->fillCell(1, 1);
+        $sut->fillCell(2, 0);
+        $sut->fillCell(2, 2);
+        $sut->fillCell(2, 1);
+        assertEquals($sut->checkMatchResult(), 'tie');
+    }
+);
+
+it(
+    'should return null while not all cells are filled',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(1, 0);
+        assertNull($sut->checkMatchResult());
     }
 );
