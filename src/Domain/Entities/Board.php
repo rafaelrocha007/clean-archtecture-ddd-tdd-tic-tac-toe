@@ -11,6 +11,7 @@ class Board
     private $currentPlayer = 'x';
 
     public function __construct(
+        private ?int $id = null,
         private array $board = [
             [null, null, null],
             [null, null, null],
@@ -18,6 +19,30 @@ class Board
         ],
         private array $events = []
     ) {
+    }
+
+    /**
+     * @return array
+     */
+    public function getBoard(): array
+    {
+        return $this->board;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function fillCell(int $x, int $y)
@@ -136,5 +161,13 @@ class Board
     public function getCellValue(int $x, int $y): string
     {
         return $this->board[$x][$y];
+    }
+
+    /**
+     * @return array
+     */
+    public function getEvents(): array
+    {
+        return $this->events;
     }
 }
