@@ -1,25 +1,14 @@
 <?php
 
 use App\Adapters\Repositories\BoardMemoryRepository;
-use App\Domain\Repositories\BoardRepository;
 use App\Domain\UseCases\CreateBoard\CreateBoard;
 
 use function PHPUnit\Framework\assertEquals;
 
-function createSut(): CreateBoard
-{
-    return new CreateBoard(createRepository());
-}
-
-function createRepository(): BoardRepository
-{
-    return new BoardMemoryRepository();
-}
-
 it(
-    'Should create a game Board',
+    'should create a game Board',
     function () {
-        $sut = createSut();
+        $sut = new CreateBoard(new BoardMemoryRepository());
         $board1 = $sut->execute();
         assertEquals($board1->getBoardId(), 1);
         $board2 = $sut->execute();
