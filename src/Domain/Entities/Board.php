@@ -50,9 +50,7 @@ class Board
         if ($this->board[$x][$y] !== null) {
             throw new FilledCellException("Cell $x, $y is already filled.");
         }
-
         $this->board[$x][$y] = $this->currentPlayer;
-
         $this->changeTurn();
     }
 
@@ -69,25 +67,40 @@ class Board
     {
     }
 
+    public function checkMatchResult()
+    {
+        $winner = $this->checkWinner();
+        if ($winner !== null) {
+            return $winner;
+        }
+        $tie = $this->checkTie();
+        if ($tie !== null) {
+            return $tie;
+        }
+        return null;
+    }
+
     /**
      * @return mixed|null
      *
      * Will return x or o for the winner or null with no winner
      */
-    public function checkWinner(): ?string
+    private function checkWinner(): ?string
     {
         foreach ($this->board as $column => $line) {
             $winnerInLine = $this->checkWinnerLine($line);
             if ($winnerInLine) {
                 return $winnerInLine;
             }
-
             $winnerInColumn = $this->checkWinnerColumn($column);
             if ($winnerInColumn) {
                 return $winnerInColumn;
             }
         }
-
+        $winner = $this->checkWinnerDiagonals();
+        if ($winner !== null) {
+            return $winner;
+        }
         return null;
     }
 
@@ -119,7 +132,6 @@ class Board
     {
         // In both diagonals the winner will touch the 1,1 position in the board
         $winner = $this->board[1][1];
-
         if (count(
                 array_unique(
                     [
@@ -131,7 +143,6 @@ class Board
             ) === 1) {
             return $winner;
         }
-
         if (count(
                 array_unique(
                     [
@@ -143,8 +154,19 @@ class Board
             ) === 1) {
             return $winner;
         }
-
         return null;
+    }
+
+    private function checkTie(): ?string
+    {
+        foreach ($this->board as $line) {
+            foreach ($line as $cell) {
+                if ($cell === null) {
+                    return null;
+                }
+            }
+        }
+        return 'tie';
     }
 
     /**
