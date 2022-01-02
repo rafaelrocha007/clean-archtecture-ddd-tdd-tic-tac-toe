@@ -55,6 +55,32 @@ it(
 );
 
 it(
+    'should player x win the match in column',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(0, 1);
+        $sut->fillCell(1, 0);
+        $sut->fillCell(1, 1);
+        $sut->fillCell(2, 0);
+        assertEquals($sut->checkMatchResult(), 'x');
+    }
+);
+
+it(
+    'should player x win the match in diagonals',
+    function () {
+        $sut = new Board();
+        $sut->fillCell(0, 0);
+        $sut->fillCell(0, 1);
+        $sut->fillCell(1, 1);
+        $sut->fillCell(1, 2);
+        $sut->fillCell(2, 2);
+        assertEquals($sut->checkMatchResult(), 'x');
+    }
+);
+
+it(
     'should player o win the match',
     function () {
         $sut = new Board();

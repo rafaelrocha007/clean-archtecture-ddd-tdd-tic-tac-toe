@@ -22,14 +22,6 @@ class Board
     }
 
     /**
-     * @return array
-     */
-    public function getBoard(): array
-    {
-        return $this->board;
-    }
-
-    /**
      * @param int $id
      */
     public function setId(int $id): void
@@ -61,10 +53,6 @@ class Board
         } else {
             $this->currentPlayer = 'x';
         }
-    }
-
-    private function addTurnEvent(int $x, int $y)
-    {
     }
 
     public function checkMatchResult()
@@ -183,13 +171,5 @@ class Board
     public function getCellValue(int $x, int $y): string
     {
         return $this->board[$x][$y];
-    }
-
-    /**
-     * @return array
-     */
-    public function getEvents(): array
-    {
-        return $this->events;
     }
 }

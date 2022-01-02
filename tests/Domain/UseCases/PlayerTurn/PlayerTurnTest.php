@@ -6,6 +6,7 @@ use App\Domain\UseCases\PlayerTurn\PlayerTurn;
 use App\Domain\UseCases\PlayerTurn\PlayerTurnInputData;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertNull;
 
 it(
     'should player plays your turn',
@@ -16,7 +17,9 @@ it(
         assertEquals($boardOutPutData->getBoardId(), 1);
         $playerTurn = new PlayerTurn($repository);
         $playerTurnInputData = new PlayerTurnInputData($boardOutPutData->getBoardId(), 0, 0);
-        $playerTurn->execute($playerTurnInputData);
+        $playerTurnOutputData = $playerTurn->execute($playerTurnInputData);
+        assertEquals($playerTurnOutputData->getBoardId(), $boardOutPutData->getBoardId());
+        assertNull($playerTurnOutputData->getWinner());
     }
 );
 

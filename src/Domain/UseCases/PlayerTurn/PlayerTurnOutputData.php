@@ -23,7 +23,7 @@ class PlayerTurnOutputData
     /**
      * @return string
      */
-    public function getWinner(): string
+    public function getWinner(): ?string
     {
         return $this->winner;
     }
