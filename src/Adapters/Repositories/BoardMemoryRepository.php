@@ -59,7 +59,7 @@ class BoardMemoryRepository implements BoardRepository
         unset($this->boards[$key]);
     }
 
-    function findKey(Board $board): int
+    private function findKey(Board $board): int
     {
         foreach ($this->boards as $key => $savedBoard) {
             if ($savedBoard->getId() === $board->getId()) {

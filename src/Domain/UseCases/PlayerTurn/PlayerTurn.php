@@ -17,6 +17,7 @@ class PlayerTurn
         $board = $this->repository->get($inputData->getBoardId());
         $board->fillCell($inputData->getX(), $inputData->getY());
         $winner = $board->checkMatchResult();
+        $this->repository->update($board);
         return new PlayerTurnOutputData($board->getId(), $winner);
     }
 }
