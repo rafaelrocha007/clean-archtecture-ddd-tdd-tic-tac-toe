@@ -12,3 +12,16 @@ it(
         $sut->get(1);
     }
 )->throws(Exception::class);
+
+it(
+    'should return all saved boards',
+    function () {
+        $sut = new BoardMemoryRepository();
+        assertCount(0, $sut->all());
+        $createBoardUseCase = new CreateBoard($sut);
+        for ($i = 1; $i <= 5; $i++) {
+            $createBoardUseCase->execute();
+            assertCount($i, $sut->all());
+        }
+    }
+);
