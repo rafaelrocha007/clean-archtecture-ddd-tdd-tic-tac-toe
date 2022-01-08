@@ -23,15 +23,15 @@ it(
     }
 );
 
-//it(
-//    'should winner be null while match is not over',
-//    function () {
-//        $repository = new BoardMemoryRepository();
-//        $createBoardUseCase = new CreateBoard($repository);
-//        $boardOutPutData = $createBoardUseCase->execute();
-//        assertEquals($boardOutPutData->getBoardId(), 1);
-//        $playerTurn = new PlayerTurn($repository);
-//        $playerTurnInputData = new PlayerTurnInputData($boardOutPutData->getBoardId(), 0, 0);
-//        $playerTurn->execute($playerTurnInputData);
-//    }
-//);
+it(
+    'should winner be null while match is not over',
+    function () {
+        $repository = new BoardMemoryRepository();
+        $createBoardUseCase = new CreateBoard($repository);
+        $boardOutPutData = $createBoardUseCase->execute();
+        assertEquals($boardOutPutData->getBoardId(), 1);
+        $playerTurn = new PlayerTurn($repository);
+        $playerTurnInputData = new PlayerTurnInputData($boardOutPutData->getBoardId(), 0, 0);
+        $playerTurn->execute($playerTurnInputData);
+    }
+);
